@@ -19,6 +19,59 @@ body {
     overflow-x: hidden; /* Important: Allows vertical scroll but prevents horizontal overflow */
 }
 
+.audio-control {
+    position: fixed;
+    bottom: 40px;
+    right: 40px;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    cursor: pointer;
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(5px);
+    padding: 10px 18px;
+    border-radius: 30px;
+    border: 1px solid rgba(139, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+.audio-text {
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: var(--text-color);
+}
+
+/* Equalizer Animation */
+.music-bars {
+    display: flex;
+    align-items: flex-end;
+    gap: 3px;
+    height: 12px;
+}
+
+.music-bars span {
+    width: 2px;
+    background: var(--string-color);
+    border-radius: 1px;
+}
+
+/* State when playing */
+.music-bars.playing span {
+    animation: bounce 0.8s ease infinite alternate;
+}
+
+.music-bars span:nth-child(2) { animation-delay: 0.2s; height: 10px; }
+.music-bars span:nth-child(3) { animation-delay: 0.4s; height: 7px; }
+.music-bars span:nth-child(4) { animation-delay: 0.1s; height: 11px; }
+
+@keyframes bounce {
+    from { height: 3px; }
+    to { height: 12px; }
+}
+
+
 /* --- OVERLAYS & HEADER --- */
 .grain-overlay {
     position: fixed;
@@ -303,6 +356,9 @@ nav a:hover, nav a.active { color: var(--string-color); }
 
 /* --- About bridge ---*/
 /* --- ABOUT BRIDGE SECTION --- */
+.about-bio p{
+    margin-bottom: 8px;
+}
 .about-bridge {
     padding: 150px 10% 100px 10%;
     background-color: var(--bg-color);
@@ -420,11 +476,36 @@ nav a:hover, nav a.active { color: var(--string-color); }
 
 /* Cinematic Video Styling */
 .video-wrapper {
-    position: relative;
-    width: 100%;
-    height: 500px;
-    overflow: hidden;
-    box-shadow: 20px 20px 60px rgba(0,0,0,0.1);
+    position: relative; /* Container for the absolute button */
+}
+
+.mute-toggle {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    z-index: 20;
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    width: 45px;
+    height: 45px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    transition: all 0.3s ease;
+}
+
+.mute-toggle:hover {
+    background: rgba(255, 255, 255, 0.4);
+    transform: scale(1.1);
+}
+
+/* Optional: hide the button if the video fails to load */
+.about-video:not([src]) + .mute-toggle {
+    display: none;
 }
 
 .about-video {
@@ -505,12 +586,62 @@ nav a:hover, nav a.active { color: var(--string-color); }
 }
 
 /* Responsive tweak */
-@media (max-width: 900px) {
+/* --- RESPONSIVE OVERHAUL --- */
+@media (max-width: 768px) {
+    header {
+        padding: 20px;
+    }
+
+    nav a {
+        margin-left: 15px;
+        font-size: 0.6rem;
+    }
+
+    /* Cover Fix: Scale down the photo stack */
+    .cover-picture img {
+        width: 180px;
+        margin: 0 -30px;
+    }
+    .cover-picture img:first-child { width: 220px; margin-right: -60px; }
+    
+    .portfolio-title {
+        font-size: 1.2rem;
+        letter-spacing: 0.5rem;
+    }
+
+    /* About Bridge Fix: Stack vertically */
     .about-container {
         grid-template-columns: 1fr;
-        gap: 50px;
+        gap: 30px;
+        text-align: center;
     }
-    .about-text { padding-right: 0; }
+    
+    .about-text {
+        padding-right: 0;
+    }
+    
+    .about-text h2 {
+        font-size: 2.2rem;
+    }
+
+    /* Vertical Gallery: Make photos thinner so they don't clip */
+    .gallery-item {
+        width: 85vw; /* Almost full width */
+        left: 7.5vw !important; /* Force center */
+    }
+
+    .horizontal-item {
+        width: 280px; /* Smaller cards for mobile */
+    }
+
+    /* Final About/Video Section */
+    .final-container {
+        grid-template-columns: 1fr;
+    }
+    
+    .video-wrapper {
+        height: 300px;
+    }
 }
 
 /* --- KEYFRAMES --- */
