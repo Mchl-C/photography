@@ -8,6 +8,20 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <audio id="bg-music" loop>
+        <source src="music/adventure.mp3" type="audio/mp4">
+    </audio>
+
+    <div class="audio-control" onclick="toggleMusic()">
+        <div class="music-bars" id="music-animation">
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <span class="audio-text">Sound On</span>
+    </div>
+
     <div class="grain-overlay"></div>
     
     <header>
@@ -94,11 +108,15 @@
     <section class="final-about-section">
         <div class="final-container">
             <div class="video-wrapper">
-                <video autoplay muted loop playsinline class="about-video">
+                <video autoplay muted loop playsinline class="about-video" id="aboutVideo">
                     <source src="video/hsinchu_park.mp4" type="video/mp4">
                     Your browser does not support the video tag.
                 </video>
                 <div class="video-overlay"></div>
+                
+                <button class="mute-toggle" onclick="toggleVideoMute()">
+                    <span id="mute-icon">🔇</span>
+                </button>
             </div>
 
             <div class="final-info">
@@ -107,9 +125,9 @@
                 <p class="school-tag">National Tsing Hua University '29</p>
                 
                 <div class="about-bio">
-                    <p> Capturing the epehemeral through a camera. </p>
+                    <p> Capturing the ephemeral through a camera. </p>
                     <p> Email     : michaelchandra334@gmail.com </p>
-                    <p> Instagram : mchl_c_ </p>
+                    <p> Instagram : @mchl_c_ </p>
                     <p> Phone num : +886 76768590 </p>
                 </div>
 
