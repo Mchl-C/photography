@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Michael Chandra - The Connected Diary</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --string-color: #8b0000; /* Deep Burgundy */
+            --bg-color: #f4f1ea; 
+            --text-color: #1a1a1a;
+            --font-display: 'Playfair Display', serif;
+            --font-body: 'Montserrat', sans-serif;
+        }
+
+        body {
+            font-family: var(--font-body);
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            margin: 0;
+            overflow-x: hidden;
+        }
+
+        /* Aesthetic Paper Grain */
+        .grain-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-image: url('https://www.transparenttextures.com/patterns/stardust.png');
+            opacity: 0.15;
+            pointer-events: none;
+            z-index: 999;
+        }
+
+        header {
+            position: fixed;
+            width: 100%;
+            padding: 40px 60px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .logo {
+            font-family: var(--font-display);
+            font-size: 1.5rem;
+            letter-spacing: 0.2rem;
+            text-transform: uppercase;
+        }
+
+        .logo span { font-weight: 400; font-style: italic; }
+
+        nav a {
+            margin-left: 40px;
+            text-decoration: none;
+            color: var(--text-color);
+            font-size: 0.7rem;
+            letter-spacing: 0.2rem;
+            text-transform: uppercase;
+            transition: 0.3s;
+        }
+
+        nav a:hover, nav a.active { color: var(--string-color); }
+
+        .gallery-section {
+            position: relative;
+            padding: 200px 0;
+            min-height: 3000px; 
+        }
+
+        .gallery-item {
+            position: absolute;
+            width: 380px;
+            padding: 12px;
+            background: #fff;
+            box-shadow: 20px 20px 60px rgba(0,0,0,0.05);
+            opacity: 0;
+            transition: transform 0.6s ease;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: auto;
+            filter: sepia(20%);
+        }
+
+        .item-info {
+            margin-top: 15px;
+            text-align: left;
+            padding: 0 10px 10px;
+        }
+
+        .item-info h3 {
+            font-family: var(--font-display);
+            font-style: italic;
+            margin: 0;
+            font-size: 1.4rem;
+        }
+
+        .item-info span {
+            font-size: 0.6rem;
+            letter-spacing: 1px;
+            color: #888;
+        }
+
+        .red-string-path {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: 5;
+            pointer-events: none;
+        }
+
+        .string {
+            fill: none;
+            stroke: var(--string-color);
+            stroke-width: 1.5px; 
+            stroke-dasharray: 5000;
+            stroke-dashoffset: 5000;
+            animation: drawString 6s ease-out forwards;
+            filter: drop-shadow(0 2px 4px rgba(139, 0, 0, 0.2));
+        }
+
+        @keyframes drawString { to { stroke-dashoffset: 0; } }
+        @keyframes fadeIn { to { opacity: 1; transform: translateY(0); } }
+
+        /* =========================================
+           NEW HORIZONTAL SECTION BLUEPRINT STYLES
+           ========================================= */
+
+        .horizontal-scroll-container {
+            /* Height controls how long the user has to scroll vertically to see the full horizontal movement */
+            height: 3000px; 
+            position: relative;
+        }
+
+        .sticky-horizontal {
+            position: sticky;
+            top: 0;
+            height: 100vh;
+            width: 100vw;
+            overflow: hidden; /* Hides horizontal scrollbar */
+            display: flex;
+            align-items: center;
+        }
+
+        .horizontal-track {
+            display: flex;
+            gap: 15vw; /* Space between horizontal items */
+            padding: 0 50vw 0 20vw; /* Start slightly indented, end with breathing room */
+            will-change: transform; /* Performance optimization for JS translation */
+        }
+
+        .horizontal-item {
+            width: 380px;
+            height: 480px;
+            padding: 12px;
+            background: #fff;
+            box-shadow: 20px 20px 60px rgba(0,0,0,0.05);
+            flex-shrink: 0; /* Prevents items from squishing together */
+            display: flex;
+            align-items: flex-end; /* Push text to bottom for the placeholder */
+        }
+    </style>
+</head>
+<body>
+    <div class="grain-overlay"></div>
+    
+    <header>
+        <div class="logo">Michael <span>Chandra</span></div>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="#" class="active">Diary</a>
+            <a href="#">About</a>
+        </nav>
+    </header>
+
+    <section class="gallery-section">
+        <svg class="red-string-path"></svg>
+
+        <div class="gallery-item" data-src="assets/gallery/g1.jpeg" data-title="Whispers" data-date="OCT 2025"></div>
+        <div class="gallery-item" data-src="assets/gallery/g2.jpeg" data-title="The Alley" data-date="NOV 2025"></div>
+        <div class="gallery-item" data-src="assets/gallery/g3.jpeg" data-title="Embrace" data-date="DEC 2025"></div>
+        <div class="gallery-item" data-src="assets/gallery/g4.jpeg" data-title="Reflections" data-date="JAN 2026"></div>
+        <div class="gallery-item" data-src="assets/gallery/g5.jpeg" data-title="Serenity" data-date="FEB 2026"></div>
+        <div class="gallery-item" data-src="assets/gallery/g6.jpeg" data-title="Inner View" data-date="MAR 2026"></div>
+    </section>
+
+    <section class="horizontal-scroll-container">
+        <div class="sticky-horizontal">
+            <div class="horizontal-track">
+                
+                <div class="horizontal-item">
+                    <div class="item-info">
+                        <span>APR 2026</span>
+                        <h3>New Horizon</h3>
+                    </div>
+                </div>
+                <div class="horizontal-item">
+                    <div class="item-info">
+                        <span>MAY 2026</span>
+                        <h3>Drifting</h3>
+                    </div>
+                </div>
+                <div class="horizontal-item">
+                    <div class="item-info">
+                        <span>JUN 2026</span>
+                        <h3>Beyond</h3>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </section>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // =========================================
+            // ORIGINAL VERTICAL GALLERY LOGIC
+            // =========================================
+            const items = document.querySelectorAll('.gallery-item');
+            const svg = document.querySelector('.red-string-path');
+            let pathData = "M";
+
+            const positions = [
+                { top: 200,  left: 15 }, 
+                { top: 700,  left: 60 }, 
+                { top: 1200, left: 10 }, 
+                { top: 1700, left: 55 }, 
+                { top: 2200, left: 20 }, 
+                { top: 2700, left: 65 }
+            ];
+
+            items.forEach((item, i) => {
+                const pos = positions[i];
+                
+                item.innerHTML = `
+                    <img src="${item.dataset.src}">
+                    <div class="item-info">
+                        <span>${item.dataset.date}</span>
+                        <h3>${item.dataset.title}</h3>
+                    </div>
+                `;
+
+                item.style.top = pos.top + "px";
+                item.style.left = pos.left + "%";
+                item.style.animation = `fadeIn 1s forwards ${i * 0.4}s`;
+
+                const centerX = (window.innerWidth * (pos.left / 100)) + 190;
+                const centerY = pos.top + 200; 
+
+                if (i === 0) {
+                    pathData += `${centerX},${centerY}`;
+                } else {
+                    const prevPos = positions[i-1];
+                    const prevX = (window.innerWidth * (prevPos.left / 100)) + 190;
+                    const prevY = prevPos.top + 200;
+
+                    const midX = (prevX + centerX) / 2;
+                    const midY = (prevY + centerY) / 2;
+                    
+                    pathData += ` Q ${midX + 50},${midY} ${centerX},${centerY}`;
+                }
+            });
+
+            const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+            path.setAttribute('d', pathData);
+            path.setAttribute('class', 'string');
+            svg.appendChild(path);
+
+            // Set SVG height only to the vertical section's height to prevent bleed into horizontal section
+            const verticalSection = document.querySelector('.gallery-section');
+            svg.style.height = verticalSection.scrollHeight + "px";
+
+
+            // =========================================
+            // NEW HORIZONTAL SCROLL BLUEPRINT LOGIC
+            // =========================================
+            const horizontalContainer = document.querySelector('.horizontal-scroll-container');
+            const horizontalTrack = document.querySelector('.horizontal-track');
+
+            window.addEventListener('scroll', () => {
+                if (!horizontalContainer || !horizontalTrack) return;
+
+                // Get the top and height of our tracking container relative to the viewport
+                const rect = horizontalContainer.getBoundingClientRect();
+                
+                // If the container's top is at or above the top of the viewport 
+                // AND the bottom hasn't scrolled past the viewport yet
+                if (rect.top <= 0 && rect.bottom >= window.innerHeight) {
+                    
+                    // Calculate how far down we've scrolled inside the container (0.0 to 1.0)
+                    const scrollProgress = Math.abs(rect.top) / (rect.height - window.innerHeight);
+                    
+                    // Calculate the maximum distance we need to move the track left
+                    const maxTranslate = horizontalTrack.scrollWidth - window.innerWidth;
+                    
+                    // Apply the horizontal translation
+                    horizontalTrack.style.transform = `translateX(-${scrollProgress * maxTranslate}px)`;
+                    
+                } else if (rect.top > 0) {
+                    // Reset to 0 if we scroll back up past the start
+                    horizontalTrack.style.transform = `translateX(0px)`;
+                } else if (rect.bottom < window.innerHeight) {
+                    // Lock to max translation if we scroll past the end 
+                    const maxTranslate = horizontalTrack.scrollWidth - window.innerWidth;
+                    horizontalTrack.style.transform = `translateX(-${maxTranslate}px)`;
+                }
+            });
+        });
+    </script>
+</body>
+</html>

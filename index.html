@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Michael's Photography Portfolio </title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="grain-overlay"></div>
+    
+    <header>
+        <div class="logo">
+            <div class="credit-mark">
+                <span>Work by Michael Chandra</span>
+                <div class="chinese">張紹河</div>
+            </div>
+        </div>
+    </header>
+
+    <section class="cover">
+        <div class="bg-layer">
+            <img src="assets/1.jpeg" alt="bg">
+            <img src="assets/2.jpeg" alt="bg">
+            <img src="assets/3.jpeg" alt="bg">
+            <img src="assets/4.jpeg" alt="bg">
+            <img src="assets/5.jpeg" alt="bg">
+            <img src="assets/6.jpeg" alt="bg">
+            <img src="assets/7.jpeg" alt="bg">
+            <img src="assets/8.jpeg" alt="bg">
+        </div>
+
+        <div class="hero-content">
+            <div class="cover-picture">
+                <img src="photos/wilson_1.png" alt="portrait 1">
+                <img src="photos/kei_1.png" alt="portrait 2"> 
+                <img src="photos/denzel_1.png" alt="portrait 3">
+            </div>
+            
+            <div class="title-container">
+                <h1 class="portfolio-title">PHOTOGRAPHY</h1>
+            </div>
+        </div>
+        
+        <div class="scroll-indicator">Scroll to explore ↓</div>
+    </section>
+
+    <section class="about-bridge">
+        <div class="about-container">
+            <div class="about-image">
+                <img src="photos/me.jpeg" alt="Michael Chandra">
+                <div class="image-caption">Hsinchu Park — Hsinchu, 2026</div>
+            </div>
+            
+            <div class="about-text">
+                <span class="section-label">Interwoven Stories</span>
+                <h2>Fragments of <br><em>Time & Connection</em></h2>
+                <p>
+                    I am Michael, a first-year student at NTHU navigating the space where life meets the lens. 
+                    To me, photography is the art of tethering memories to the present. If a picture tells 
+                    a thousand words, then every moment captured is a silent dialogue, leading us 
+                    unwaveringly toward the next.
+                </p>
+                <p>
+                    Drag the fragments, follow the line, and find the stories hidden within the frames.
+                </p>
+                <div class="signature">Michael Chandra</div>
+            </div>
+        </div>
+    </section>
+
+    <section class="gallery-section">
+        <svg class="red-string-path">
+            <path class="string" id="scroll-path"></path>
+        </svg>
+
+        <div class="gallery-item" data-src="gallery/1.jpeg" data-title="Christmas" data-date="Dec 7, 2024"></div>
+        <div class="gallery-item" data-src="gallery/2.jpeg" data-title="Flowers" data-date="Dec 28, 2024"></div>
+        <div class="gallery-item" data-src="gallery/3.jpeg" data-title="Ice cream" data-date="Feb 11, 2025"></div>
+        <div class="gallery-item" data-src="gallery/4.jpeg" data-title="Meeting" data-date="July 20, 2025"></div>
+        <div class="gallery-item" data-src="gallery/5.jpeg" data-title="Serenity" data-date="Oct 4, 2025"></div>
+        <div class="gallery-item" data-src="gallery/6.jpeg" data-title="Community" data-date="Dec 31, 2025"></div>
+        </section>        
+    </section>
+
+    <section class="horizontal-scroll-container">
+        <div class="sticky-horizontal">
+            <div class="horizontal-track" id="dynamic-track" data-count="15">
+            </div>
+        </div>
+    </section>
+
+    <section class="final-about-section">
+        <div class="final-container">
+            <div class="video-wrapper">
+                <video autoplay muted loop playsinline class="about-video">
+                    <source src="video/hsinchu_park.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+                <div class="video-overlay"></div>
+            </div>
+
+            <div class="final-info">
+                <span class="section-label">About me</span>
+                <h2>Michael Chandra</h2>
+                <p class="school-tag">National Tsing Hua University '29</p>
+                
+                <div class="about-bio">
+                    <p> Capturing the epehemeral through a camera. </p>
+                    <p> Email     : michaelchandra334@gmail.com </p>
+                    <p> Instagram : mchl_c_ </p>
+                    <p> Phone num : +886 76768590 </p>
+                </div>
+
+                <div class="contact-links">
+                    <a href="mailto:michaelchandra334@gmail.com" class="contact-item">Email</a>
+                    <a href="https://instagram.com/mchl_c_" class="contact-item">Instagram</a>
+                </div>
+            </div>
+        </div>
+    </section>
+    <script src="script.js"></script>
+</body>
+</html>

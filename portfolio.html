@@ -1,0 +1,282 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title> Photography Portfolio </title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;700&display=swap" rel="stylesheet">
+    
+    <style> 
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #eaf4fc;
+            overflow: hidden;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .cover {
+            position: relative;
+            height: 100vh;
+            width: 100vw;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* --- Credit --- */
+        /* --- TOP LEFT CREDIT --- */
+		.credit-mark {
+		    position: absolute;
+		    top: 40px;
+		    left: 40px;
+		    z-index: 100; /* Stays above everything */
+		    pointer-events: auto;
+		    font-family: 'Montserrat', sans-serif;
+		    color: #333;
+		    letter-spacing: 0.1rem;
+		    font-size: 0.85rem;
+		    text-transform: uppercase;
+		    opacity: 0;
+		    animation: fadeInBg 2s ease forwards 1.5s; /* Fades in last for elegance */
+		}
+
+		.credit-mark span {
+		    font-weight: 700;
+		    display: block;
+		    margin-bottom: 4px;
+		}
+
+		.credit-mark .chinese {
+		    font-weight: 400;
+		    letter-spacing: 0.3rem;
+		    font-size: 0.9rem;
+		    display: block;
+		}
+        /* --- BACKGROUND LAYER --- */
+        .bg-layer {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1; /* Lowest layer */
+        }
+
+        .bg-layer img {
+            position: absolute; 
+            height: auto;
+            opacity: 0;
+            cursor: grab;
+            user-select: none;
+            -webkit-user-drag: none;
+            touch-action: none;
+            /* Entrance and ambient float */
+            animation: float 12s ease-in-out infinite, fadeInBg 2s ease forwards;
+            /* Smooth transition when released or scattered */
+            transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 2s ease;
+        }
+
+        .bg-layer img:active { cursor: grabbing; }
+
+        /* Custom coordinates for your background assets */
+        .bg-layer img:nth-child(1) { top: 12%; left: 34%; width: 200px; animation-delay: 0s, 0.5s; }
+        .bg-layer img:nth-child(2) { top: 17%; right: 23%; width: 200px; animation-delay: -2s, 0.7s; }
+        .bg-layer img:nth-child(3) { top: 22%; left: 22%; width: 200px; animation-delay: -4s, 0.9s; }
+        .bg-layer img:nth-child(4) { bottom: 16%; right: 18%; width: 250px; animation-delay: -1s, 1.1s; }
+        .bg-layer img:nth-child(5) { bottom: 13%; left: 20%; width: 300px; animation-delay: -3s, 1.3s; }
+        .bg-layer img:nth-child(6) { top: 10%; right: 42%; width: 200px; animation-delay: -5s, 1.5s; }
+        .bg-layer img:nth-child(7) { top: 26%; right: 36%; width: 175px; animation-delay: -2.5s, 1.7s; }
+        .bg-layer img:nth-child(8) { top: 30%; left: 35%; width: 200px; animation-delay: -4.5s, 1.9s; }
+
+        /* --- FOREGROUND CONTENT --- */
+        .hero-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            z-index: 10; /* Above background images */
+            pointer-events: none; /* Let mouse clicks pass through the container to the BG */
+        }
+
+        .cover-picture {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .cover-picture img, .title-container {
+            pointer-events: auto; /* Re-enable mouse for the actual subjects/title */
+        }
+
+        .cover-picture img {
+            width: 300px;
+            height: auto;
+            margin: 0 -60px;
+            filter: drop-shadow(0 15px 25px rgba(0,0,0,0.15));
+            opacity: 0;
+            animation: slideUp 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        /* Wilson's specific size and position */
+        .cover-picture img:first-child {
+            width: 375px;
+            margin-top: 90px;
+            margin-right: -100px;
+            animation-delay: 0.2s;
+        }
+
+        /* Kei (Middle) setup */
+        .cover-picture img:nth-child(2) {
+            z-index: 5;
+            transform: scale(1.1) translateY(20px);
+            animation-name: slideUpCenter;
+            animation-delay: 0.4s;
+        }
+
+        .cover-picture img:nth-child(3) { animation-delay: 0.6s; }
+        /* 1. Make the giant invisible boxes ignore the mouse */
+        .hero-content, .cover-picture {
+            pointer-events: none; 
+        }
+
+        /* 2. Re-enable the mouse ONLY for the actual images and the title */
+        .cover-picture img, 
+        .title-container, 
+        .bg-layer img {
+            pointer-events: auto; 
+        }
+        
+        /* Title Box Style */
+        .title-container {
+            margin-top: -20px;
+            background-color: #000;
+            padding: 15px 50px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.4);
+            transform: skewX(-5deg);
+            opacity: 0;
+            animation: slideUp 1s cubic-bezier(0.16, 1, 0.3, 1) forwards 1.2s;
+            z-index: 10;
+        }
+
+        .portfolio-title {
+            color: #fff;
+            font-size: 2.5rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.2rem;
+            margin-right: -1.2rem;
+            transform: skewX(5deg);
+        }
+
+        /* --- KEYFRAMES --- */
+        @keyframes float {
+            0% { margin-top: 0px; rotate: 0deg; }
+            50% { margin-top: -15px; rotate: 1deg; }
+            100% { margin-top: 0px; rotate: 0deg; }
+        }
+
+        @keyframes fadeInBg { to { opacity: 0.5; } }
+
+        @keyframes slideUp {
+            0% { opacity: 0; transform: translateY(40px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes slideUpCenter {
+            0% { opacity: 0; transform: scale(1.1) translateY(40px); }
+            100% { opacity: 1; transform: scale(1.1) translateY(0); }
+        }
+    </style>
+</head>
+    <body>
+    <section class="cover">
+	   	<div class="credit-mark">
+	        <span>Work by Michael Chandra</span>
+	        <div class="chinese">張紹河</div>
+	    </div>
+
+	    <div class="bg-layer">
+	        <img src="assets/1.jpeg">
+	    </div>
+
+        <div class="bg-layer">
+            <img src="assets/1.jpeg">
+            <img src="assets/2.jpeg">
+            <img src="assets/3.jpeg">
+            <img src="assets/4.jpeg">
+            <img src="assets/5.jpeg">
+            <img src="assets/6.jpeg">
+            <img src="assets/7.jpeg">
+            <img src="assets/8.jpeg">
+        </div>
+
+        <div class="hero-content">
+            <div class="cover-picture">
+                <img src="photos/wilson_1.png">
+                <img src="photos/kei_1.png"> 
+                <img src="photos/denzel_1.png">
+            </div>
+            
+            <div class="title-container">
+                <h1 class="portfolio-title">PHOTOGRAPHY</h1>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        const bgItems = document.querySelectorAll('.bg-layer img');
+
+        bgItems.forEach(img => {
+            let isDragging = false;
+            let startX, startY;
+            let currentX = 0;
+            let currentY = 0;
+
+            img.addEventListener('pointerdown', (e) => {
+                // This ensures clicking the image doesn't trigger the background scatter
+                e.stopPropagation(); 
+                
+                isDragging = true;
+                startX = e.clientX - currentX;
+                startY = e.clientY - currentY;
+                
+                img.style.transition = 'none'; 
+                img.style.zIndex = 8; // Lift it above other BG images, but stay below portraits (z-index 10)
+                
+                // This is the "Magic": it keeps the mouse attached to the image 
+                // even if the mouse moves behind a portrait
+                img.setPointerCapture(e.pointerId);
+            });
+
+            img.addEventListener('pointermove', (e) => {
+                if (!isDragging) return;
+                currentX = e.clientX - startX;
+                currentY = e.clientY - startY;
+                img.style.transform = `translate(${currentX}px, ${currentY}px)`;
+            });
+
+            img.addEventListener('pointerup', (e) => {
+                isDragging = false;
+                img.style.transition = 'transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1)';
+                img.style.zIndex = 1;
+                img.releasePointerCapture(e.pointerId);
+            });
+        });
+
+        // Global scatter only happens if you click the actual background "air"
+        document.querySelector('.cover').addEventListener('click', (e) => {
+            if (e.target.classList.contains('cover') || e.target.classList.contains('bg-layer')) {
+                bgItems.forEach((img) => {
+                    const randomX = Math.floor(Math.random() * 400) - 200;
+                    const randomY = Math.floor(Math.random() * 400) - 200;
+                    img.style.transform = `translate(${randomX}px, ${randomY}px) rotate(${Math.random() * 40 - 20}deg)`;
+                });
+            }
+        });
+    </script>
+</body>
+</html>
