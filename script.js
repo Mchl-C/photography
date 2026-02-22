@@ -264,3 +264,45 @@ document.addEventListener('DOMContentLoaded', () => {
         path.style.strokeDashoffset = pathLength - drawLength;
     });
 });
+
+const music = document.getElementById('bg-music');
+const musicBars = document.getElementById('music-animation');
+const audioText = document.querySelector('.audio-text');
+
+function toggleMusic() {
+    if (music.paused) {
+        music.play();
+        musicBars.classList.add('playing');
+        audioText.innerText = "Sound Off";
+        // Fade volume in for a pro feel
+        music.volume = 0;
+        let vol = 0;
+        const fadeIn = setInterval(() => {
+            if (vol < 0.3) { // Keep volume low (30%) so it's not annoying
+                vol += 0.05;
+                music.volume = vol;
+            } else {
+                clearInterval(fadeIn);
+            }
+        }, 100);
+    } else {
+        music.pause();
+        musicBars.classList.remove('playing');
+        audioText.innerText = "Sound On";
+    }
+}
+
+function toggleVideoMute() {
+    const video = document.getElementById('aboutVideo');
+    const icon = document.getElementById('mute-icon');
+
+    if (video.muted) {
+        video.muted = false;
+        icon.innerText = "🔊"; // Unmuted icon
+        // Set a reasonable volume so it doesn't blast
+        video.volume = 0.5; 
+    } else {
+        video.muted = true;
+        icon.innerText = "🔇"; // Muted icon
+    }
+}
